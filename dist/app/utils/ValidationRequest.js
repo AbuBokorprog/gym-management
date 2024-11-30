@@ -12,14 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const config_1 = __importDefault(require("./app/config"));
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        // ... you will write your Prisma Client queries here
-        const server = app_1.default.listen(config_1.default.port, () => {
-            console.log(`Example app listening on port ${config_1.default.port}`);
-        });
-    });
-}
-main();
+const CatchAsync_1 = __importDefault(require("./CatchAsync"));
+const ValidationRequest = (schema) => {
+    return (0, CatchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        yield schema.parseAsync(req.body);
+        next();
+    }));
+};
+exports.default = ValidationRequest;

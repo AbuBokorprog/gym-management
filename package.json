@@ -31,7 +31,8 @@
     "http-status": "1.7.4",
     "prisma": "^6.0.0",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.16.0",
