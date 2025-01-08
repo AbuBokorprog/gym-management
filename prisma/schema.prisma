@@ -14,28 +14,55 @@ datasource db {
 }
 
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-}
-
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
-}
-
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  posts   Post[]
-  profile Profile?
+  id                  String      @id @default(uuid())
+  firstName           String
+  lastName            String
+  fullName            String
+  email               String
+  password            String
+  profileImage        String
+  phone               String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  schedules           classSchedule[]
+  bookingClass        BookingClass[]
+
+  @@map("users")
+}
+
+model classSchedule {
+  id                  String      @id @default(uuid())
+  date                DateTime
+  startTime           DateTime
+  endTime             DateTime
+  trainerId           String
+  trainer             User @relation(fields: [trainerId], references: [id])
+  maxTrainee          Int @default(10)
+  totalCurrentTrainee Int @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  bookingClass        BookingClass[]
+  @@map("class-schedules")
+}
+
+model BookingClass {
+  id                  String      @id @default(uuid())
+  traineeId           String
+  trainee             User @relation(fields: [traineeId], references: [id])
+  scheduleId          String
+  schedules           classSchedule @relation(fields: [scheduleId], references: [id])
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  
+  @@map("booking-class")
+}
+
+
+
+enum Role {
+  ADMIN
+  TRAINER
+  TRAINEE
 }
