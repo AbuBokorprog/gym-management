@@ -2,8 +2,12 @@ import { User } from '@prisma/client'
 import prisma from '../../helpers/prisma'
 import { AppError } from '../../utils/AppError'
 import httpStatus from 'http-status'
+import { HashPassword } from '../../helpers/hash-password'
 
 const createUser = async (payload: User) => {
+  payload.fullName = `${payload.firstName} ${payload.lastName}`
+  const hashPassword = await HashPassword(payload.password)
+  payload.password = hashPassword
   const data = await prisma.user.create({
     data: payload,
   })

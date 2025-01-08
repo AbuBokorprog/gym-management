@@ -16,7 +16,11 @@ exports.userServices = void 0;
 const prisma_1 = __importDefault(require("../../helpers/prisma"));
 const AppError_1 = require("../../utils/AppError");
 const http_status_1 = __importDefault(require("http-status"));
+const hash_password_1 = require("../../helpers/hash-password");
 const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    payload.fullName = `${payload.firstName} ${payload.lastName}`;
+    const hashPassword = yield (0, hash_password_1.HashPassword)(payload.password);
+    payload.password = hashPassword;
     const data = yield prisma_1.default.user.create({
         data: payload,
     });
