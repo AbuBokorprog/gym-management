@@ -1,43 +1,46 @@
-import { User } from '@prisma/client'
+import { classSchedule } from '@prisma/client'
 import prisma from '../../helpers/prisma'
 import { AppError } from '../../utils/AppError'
 import httpStatus from 'http-status'
 
-const createClassSchedule = async (payload: User) => {
-  const data = await prisma.user.create({
+const createClassSchedule = async (payload: classSchedule) => {
+  const data = await prisma.classSchedule.create({
     data: payload,
   })
 
   return data
 }
 const retrieveAllClassSchedule = async () => {
-  const data = await prisma.user.findMany({})
+  const data = await prisma.classSchedule.findMany({})
 
   return data
 }
 const retrieveSingleClassSchedule = async (id: string) => {
-  const data = await prisma.user.findUnique({
+  const data = await prisma.classSchedule.findUnique({
     where: {
       id: id,
     },
   })
 
   if (!data) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'classSchedule not found!')
   }
 
   return data
 }
-const updateClassSchedule = async (id: string, payload: Partial<User>) => {
-  const isExistUser = await prisma.user.findUnique({
+const updateClassSchedule = async (
+  id: string,
+  payload: Partial<classSchedule>,
+) => {
+  const isExistclassSchedule = await prisma.classSchedule.findUnique({
     where: { id },
   })
 
-  if (!isExistUser) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User not found!')
+  if (!isExistclassSchedule) {
+    throw new AppError(httpStatus.NOT_FOUND, 'classSchedule not found!')
   }
 
-  const data = await prisma.user.update({
+  const data = await prisma.classSchedule.update({
     where: {
       id: id,
     },
@@ -47,12 +50,12 @@ const updateClassSchedule = async (id: string, payload: Partial<User>) => {
   return data
 }
 const deleteClassSchedule = async (id: string) => {
-  const data = await prisma.user.delete({
+  const data = await prisma.classSchedule.delete({
     where: { id },
   })
 
   if (!data) {
-    throw new AppError(httpStatus.BAD_REQUEST, 'User delete failed!')
+    throw new AppError(httpStatus.BAD_REQUEST, 'classSchedule delete failed!')
   }
 
   return data

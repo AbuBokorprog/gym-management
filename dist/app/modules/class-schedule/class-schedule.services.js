@@ -17,34 +17,34 @@ const prisma_1 = __importDefault(require("../../helpers/prisma"));
 const AppError_1 = require("../../utils/AppError");
 const http_status_1 = __importDefault(require("http-status"));
 const createClassSchedule = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield prisma_1.default.user.create({
+    const data = yield prisma_1.default.classSchedule.create({
         data: payload,
     });
     return data;
 });
 const retrieveAllClassSchedule = () => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield prisma_1.default.user.findMany({});
+    const data = yield prisma_1.default.classSchedule.findMany({});
     return data;
 });
 const retrieveSingleClassSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield prisma_1.default.user.findUnique({
+    const data = yield prisma_1.default.classSchedule.findUnique({
         where: {
             id: id,
         },
     });
     if (!data) {
-        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, 'User not found!');
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, 'classSchedule not found!');
     }
     return data;
 });
 const updateClassSchedule = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const isExistUser = yield prisma_1.default.user.findUnique({
+    const isExistclassSchedule = yield prisma_1.default.classSchedule.findUnique({
         where: { id },
     });
-    if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, 'User not found!');
+    if (!isExistclassSchedule) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, 'classSchedule not found!');
     }
-    const data = yield prisma_1.default.user.update({
+    const data = yield prisma_1.default.classSchedule.update({
         where: {
             id: id,
         },
@@ -53,11 +53,11 @@ const updateClassSchedule = (id, payload) => __awaiter(void 0, void 0, void 0, f
     return data;
 });
 const deleteClassSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield prisma_1.default.user.delete({
+    const data = yield prisma_1.default.classSchedule.delete({
         where: { id },
     });
     if (!data) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, 'User delete failed!');
+        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, 'classSchedule delete failed!');
     }
     return data;
 });
