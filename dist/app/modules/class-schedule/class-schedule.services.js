@@ -38,10 +38,10 @@ const retrieveSingleClassSchedule = (id) => __awaiter(void 0, void 0, void 0, fu
     return data;
 });
 const updateClassSchedule = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const isExistclassSchedule = yield prisma_1.default.classSchedule.findUnique({
+    const isExistClassSchedule = yield prisma_1.default.classSchedule.findUnique({
         where: { id },
     });
-    if (!isExistclassSchedule) {
+    if (!isExistClassSchedule) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, 'classSchedule not found!');
     }
     const data = yield prisma_1.default.classSchedule.update({

@@ -32,11 +32,11 @@ const updateClassSchedule = async (
   id: string,
   payload: Partial<classSchedule>,
 ) => {
-  const isExistclassSchedule = await prisma.classSchedule.findUnique({
+  const isExistClassSchedule = await prisma.classSchedule.findUnique({
     where: { id },
   })
 
-  if (!isExistclassSchedule) {
+  if (!isExistClassSchedule) {
     throw new AppError(httpStatus.NOT_FOUND, 'classSchedule not found!')
   }
 
