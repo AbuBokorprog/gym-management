@@ -2,6 +2,8 @@ import express from 'express'
 import { userController } from './user.controller'
 import ValidationRequest from '../../utils/ValidationRequest'
 import { userValidation } from './user.validation'
+import Auth from '../../middlewares/Auth'
+import { Role } from '@prisma/client'
 const router = express.Router()
 
 router.post(
@@ -11,6 +13,7 @@ router.post(
 )
 router.post(
   '/create-trainer',
+  Auth(Role.ADMIN),
   ValidationRequest(userValidation.createUserValidation),
   userController.createUser,
 )

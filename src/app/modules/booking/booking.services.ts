@@ -1,46 +1,120 @@
-import { classSchedule } from '@prisma/client'
+import { BookingClass } from '@prisma/client'
 import prisma from '../../helpers/prisma'
 import { AppError } from '../../utils/AppError'
 import httpStatus from 'http-status'
 
-const createBookingSchedule = async (payload: classSchedule) => {
-  const data = await prisma.classSchedule.create({
+const createBookingSchedule = async (
+  traineeId: string,
+  payload: BookingClass,
+) => {
+  // 1. Check is class schedule exit?
+  const schedule = await prisma.classSchedule.findUnique({
+    where: {
+      id: payload.scheduleId,
+    },
+  })
+  if (!schedule) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Class schedule not found.')
+  }
+
+  // 2. Check if the trainee already booked!
+  const isAlreadyBooked = await prisma.bookingClass.findFirst({
+    where: {
+      scheduleId: payload.scheduleId,
+      traineeId: payload.traineeId,
+    },
+  })
+
+  if (isAlreadyBooked) {
+    throw new AppError(
+      httpStatus.ALREADY_REPORTED,
+      "You're already booked this class schedule!",
+    )
+  }
+
+  // 3. Check is the class schedule already booked 10 trainee.
+  const isExistBookingSchedule = await prisma.bookingClass.findMany({
+    where: {
+      scheduleId: payload.scheduleId,
+    },
+  })
+
+  if (isExistBookingSchedule.length >= 10) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      'Class schedule is full. Maximum 10 trainees allowed per schedule.',
+    )
+  }
+
+  // 4. Check if the trainee has already booked a class in the same time slot
+
+  const overlappingBooking = await prisma.bookingClass.findMany({
+    where: {
+      traineeId: payload.traineeId,
+    },
+    include: {
+      schedules: true,
+    },
+  })
+
+  if (overlappingBooking.length > 0) {
+    const isOverlapped = overlappingBooking.some(existingBookings => {
+      const bookedStartTime = new Date(existingBookings.schedules.startTime)
+      const bookedEndTime = new Date(existingBookings.schedules.endTime)
+      const newBookingStartTime = new Date(schedule.startTime)
+      const newBookingEndTime = new Date(schedule.endTime)
+
+      return (
+        newBookingStartTime < bookedEndTime &&
+        newBookingEndTime > bookedStartTime
+      )
+    })
+
+    if (isOverlapped) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        'You have already booked another class in the same time slot.',
+      )
+    }
+  }
+
+  const data = await prisma.bookingClass.create({
     data: payload,
   })
 
   return data
 }
 const retrieveAllBookingSchedule = async () => {
-  const data = await prisma.classSchedule.findMany({})
+  const data = await prisma.bookingClass.findMany({})
 
   return data
 }
 const retrieveSingleBookingSchedule = async (id: string) => {
-  const data = await prisma.classSchedule.findUnique({
+  const data = await prisma.bookingClass.findUnique({
     where: {
       id: id,
     },
   })
 
   if (!data) {
-    throw new AppError(httpStatus.NOT_FOUND, 'classSchedule not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'booking not found!')
   }
 
   return data
 }
 const updateBookingSchedule = async (
   id: string,
-  payload: Partial<classSchedule>,
+  payload: Partial<BookingClass>,
 ) => {
-  const isExistBookingSchedule = await prisma.classSchedule.findUnique({
+  const isExistBookingSchedule = await prisma.bookingClass.findUnique({
     where: { id },
   })
 
   if (!isExistBookingSchedule) {
-    throw new AppError(httpStatus.NOT_FOUND, 'classSchedule not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'booking not found!')
   }
 
-  const data = await prisma.classSchedule.update({
+  const data = await prisma.bookingClass.update({
     where: {
       id: id,
     },
@@ -50,12 +124,12 @@ const updateBookingSchedule = async (
   return data
 }
 const deleteBookingSchedule = async (id: string) => {
-  const data = await prisma.classSchedule.delete({
+  const data = await prisma.bookingClass.delete({
     where: { id },
   })
 
   if (!data) {
-    throw new AppError(httpStatus.BAD_REQUEST, 'classSchedule delete failed!')
+    throw new AppError(httpStatus.BAD_REQUEST, 'booking delete failed!')
   }
 
   return data

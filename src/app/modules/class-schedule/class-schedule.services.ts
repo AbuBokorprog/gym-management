@@ -3,7 +3,45 @@ import prisma from '../../helpers/prisma'
 import { AppError } from '../../utils/AppError'
 import httpStatus from 'http-status'
 
-const createClassSchedule = async (payload: classSchedule) => {
+const createClassSchedule = async (adminId: string, payload: classSchedule) => {
+  const {
+    date,
+    startTime,
+    endTime,
+    maxTrainee,
+    totalCurrentTrainee,
+    trainerId,
+  } = payload
+
+  // 1. Check if already scheduled 5 classes on the given day
+  const existingSchedules = await prisma.classSchedule.findMany({
+    where: { date },
+  })
+
+  if (existingSchedules.length >= 5) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      'Class scheduling limit exceeded. Only 5 classes are allowed per day.',
+    )
+  }
+
+  // 2. Check for time overlap
+  const isOverlapping = existingSchedules.some(schedule => {
+    const existingStartTime = new Date(`${date}T${schedule.startTime}`)
+    const existingEndTime = new Date(`${date}T${schedule.endTime}`)
+    const newStartTime = new Date(`${date}T${payload.startTime}`)
+    const newEndTime = new Date(`${date}T${payload.endTime}`)
+    return newStartTime < existingEndTime && newEndTime > existingStartTime
+  })
+
+  if (isOverlapping) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      'Class time overlaps with an existing schedule.',
+    )
+  }
+
+  // 3. Create a class schedule.
   const data = await prisma.classSchedule.create({
     data: payload,
   })

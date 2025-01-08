@@ -2,17 +2,21 @@ import httpStatus from 'http-status'
 import CatchAsync from '../../utils/CatchAsync'
 import SuccessResponse from '../../utils/SuccessResponse'
 import { bookingServices } from './booking.services'
+import { Request, Response } from 'express'
 
-const createBookingSchedule = CatchAsync(async (req, res) => {
-  const data = await bookingServices.createBookingSchedule(req.body)
+const createBookingSchedule = CatchAsync(
+  async (req: Request & { user?: any }, res: Response) => {
+    const { id } = req?.user
+    const data = await bookingServices.createBookingSchedule(id, req.body)
 
-  SuccessResponse(res, {
-    status: httpStatus.OK,
-    success: true,
-    message: 'Create booking schedule successfully!',
-    data,
-  })
-})
+    SuccessResponse(res, {
+      status: httpStatus.OK,
+      success: true,
+      message: 'Create booking schedule successfully!',
+      data,
+    })
+  },
+)
 const retrieveAllBookingSchedule = CatchAsync(async (req, res) => {
   const data = await bookingServices.retrieveAllBookingSchedule()
 

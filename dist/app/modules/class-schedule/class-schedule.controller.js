@@ -18,7 +18,8 @@ const CatchAsync_1 = __importDefault(require("../../utils/CatchAsync"));
 const SuccessResponse_1 = __importDefault(require("../../utils/SuccessResponse"));
 const class_schedule_services_1 = require("./class-schedule.services");
 const createClassSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield class_schedule_services_1.classScheduleServices.createClassSchedule(req.body);
+    const { id } = req.user;
+    const data = yield class_schedule_services_1.classScheduleServices.createClassSchedule(id, req.body);
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,

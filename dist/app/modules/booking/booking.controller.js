@@ -18,7 +18,8 @@ const CatchAsync_1 = __importDefault(require("../../utils/CatchAsync"));
 const SuccessResponse_1 = __importDefault(require("../../utils/SuccessResponse"));
 const booking_services_1 = require("./booking.services");
 const createBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield booking_services_1.bookingServices.createBookingSchedule(req.body);
+    const { id } = req === null || req === void 0 ? void 0 : req.user;
+    const data = yield booking_services_1.bookingServices.createBookingSchedule(id, req.body);
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,

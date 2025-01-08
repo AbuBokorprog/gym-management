@@ -9,6 +9,7 @@ const router = express.Router()
 
 router.post(
   '/',
+  Auth(Role.TRAINEE),
   ValidationRequest(bookingScheduleValidation.createBookingClassSchema),
   bookingController.createBookingSchedule,
 )
