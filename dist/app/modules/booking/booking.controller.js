@@ -28,7 +28,8 @@ const createBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(
     });
 }));
 const retrieveAllBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield booking_services_1.bookingServices.retrieveAllBookingSchedule();
+    const { id } = req === null || req === void 0 ? void 0 : req.user;
+    const data = yield booking_services_1.bookingServices.retrieveAllBookingSchedule(id);
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,

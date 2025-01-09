@@ -17,16 +17,19 @@ const createBookingSchedule = CatchAsync(
     })
   },
 )
-const retrieveAllBookingSchedule = CatchAsync(async (req, res) => {
-  const data = await bookingServices.retrieveAllBookingSchedule()
+const retrieveAllBookingSchedule = CatchAsync(
+  async (req: Request & { user?: any }, res: Response) => {
+    const { id } = req?.user
+    const data = await bookingServices.retrieveAllBookingSchedule(id)
 
-  SuccessResponse(res, {
-    status: httpStatus.OK,
-    success: true,
-    message: 'Retrieve all booking schedules successfully!',
-    data,
-  })
-})
+    SuccessResponse(res, {
+      status: httpStatus.OK,
+      success: true,
+      message: 'Retrieve all booking schedules successfully!',
+      data,
+    })
+  },
+)
 const retrieveSingleBookingSchedule = CatchAsync(async (req, res) => {
   const { id } = req.params
   const data = await bookingServices.retrieveSingleBookingSchedule(id)

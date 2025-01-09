@@ -17,7 +17,7 @@ const prisma_1 = __importDefault(require("../../helpers/prisma"));
 const AppError_1 = require("../../utils/AppError");
 const http_status_1 = __importDefault(require("http-status"));
 const createClassSchedule = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const { date, startTime, endTime, maxTrainee, totalCurrentTrainee, trainerId, } = payload;
+    const { date, startTime, endTime } = payload;
     // 1. Check if already scheduled 5 classes on the given day
     const existingSchedules = yield prisma_1.default.classSchedule.findMany({
         where: { date },

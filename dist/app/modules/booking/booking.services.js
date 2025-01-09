@@ -72,8 +72,10 @@ const createBookingSchedule = (traineeId, payload) => __awaiter(void 0, void 0, 
     });
     return data;
 });
-const retrieveAllBookingSchedule = () => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield prisma_1.default.bookingClass.findMany({});
+const retrieveAllBookingSchedule = (traineeId) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield prisma_1.default.bookingClass.findMany({
+        where: { traineeId },
+    });
     return data;
 });
 const retrieveSingleBookingSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {

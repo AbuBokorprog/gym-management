@@ -14,8 +14,8 @@ router.post(
   bookingController.createBookingSchedule,
 )
 router.get(
-  '/',
-  Auth(Role.ADMIN, Role.TRAINEE, Role.TRAINER),
+  '/my-booking-schedules',
+  Auth(Role.TRAINEE),
   bookingController.retrieveAllBookingSchedule,
 )
 router.get(

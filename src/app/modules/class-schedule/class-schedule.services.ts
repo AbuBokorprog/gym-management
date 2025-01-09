@@ -4,14 +4,7 @@ import { AppError } from '../../utils/AppError'
 import httpStatus from 'http-status'
 
 const createClassSchedule = async (payload: classSchedule) => {
-  const {
-    date,
-    startTime,
-    endTime,
-    maxTrainee,
-    totalCurrentTrainee,
-    trainerId,
-  } = payload
+  const { date, startTime, endTime } = payload
 
   // 1. Check if already scheduled 5 classes on the given day
   const existingSchedules = await prisma.classSchedule.findMany({

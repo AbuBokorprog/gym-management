@@ -84,8 +84,10 @@ const createBookingSchedule = async (
 
   return data
 }
-const retrieveAllBookingSchedule = async () => {
-  const data = await prisma.bookingClass.findMany({})
+const retrieveAllBookingSchedule = async (traineeId: string) => {
+  const data = await prisma.bookingClass.findMany({
+    where: { traineeId },
+  })
 
   return data
 }
