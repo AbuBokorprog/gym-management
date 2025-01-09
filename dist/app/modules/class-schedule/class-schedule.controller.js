@@ -20,9 +20,9 @@ const class_schedule_services_1 = require("./class-schedule.services");
 const createClassSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield class_schedule_services_1.classScheduleServices.createClassSchedule(req.body);
     (0, SuccessResponse_1.default)(res, {
-        status: http_status_1.default.OK,
+        status: http_status_1.default.CREATED,
         success: true,
-        message: 'Create user successfully!',
+        message: 'Create class schedule successfully!',
         data,
     });
 }));
@@ -31,7 +31,7 @@ const retrieveAllClassSchedule = (0, CatchAsync_1.default)((req, res) => __await
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Retrieve all users successfully!',
+        message: 'Retrieve all class schedules successfully!',
         data,
     });
 }));
@@ -41,7 +41,7 @@ const retrieveSingleClassSchedule = (0, CatchAsync_1.default)((req, res) => __aw
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Retrieve user successfully!',
+        message: 'Retrieve class schedule successfully!',
         data,
     });
 }));
@@ -51,7 +51,7 @@ const updateClassSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(vo
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Update user successfully!',
+        message: 'Update class schedule successfully!',
         data,
     });
 }));
@@ -61,7 +61,7 @@ const deleteClassSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(vo
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Delete user successfully!',
+        message: 'Delete class schedule successfully!',
         data,
     });
 }));

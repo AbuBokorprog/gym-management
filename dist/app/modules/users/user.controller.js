@@ -20,7 +20,7 @@ const user_services_1 = require("./user.services");
 const createUser = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield user_services_1.userServices.createUser(req.body);
     (0, SuccessResponse_1.default)(res, {
-        status: http_status_1.default.OK,
+        status: http_status_1.default.CREATED,
         success: true,
         message: 'Create user successfully!',
         data,

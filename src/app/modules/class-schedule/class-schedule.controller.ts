@@ -7,9 +7,9 @@ const createClassSchedule = CatchAsync(async (req, res) => {
   const data = await classScheduleServices.createClassSchedule(req.body)
 
   SuccessResponse(res, {
-    status: httpStatus.OK,
+    status: httpStatus.CREATED,
     success: true,
-    message: 'Create user successfully!',
+    message: 'Create class schedule successfully!',
     data,
   })
 })
@@ -19,7 +19,7 @@ const retrieveAllClassSchedule = CatchAsync(async (req, res) => {
   SuccessResponse(res, {
     status: httpStatus.OK,
     success: true,
-    message: 'Retrieve all users successfully!',
+    message: 'Retrieve all class schedules successfully!',
     data,
   })
 })
@@ -30,7 +30,7 @@ const retrieveSingleClassSchedule = CatchAsync(async (req, res) => {
   SuccessResponse(res, {
     status: httpStatus.OK,
     success: true,
-    message: 'Retrieve user successfully!',
+    message: 'Retrieve class schedule successfully!',
     data,
   })
 })
@@ -41,7 +41,7 @@ const updateClassSchedule = CatchAsync(async (req, res) => {
   SuccessResponse(res, {
     status: httpStatus.OK,
     success: true,
-    message: 'Update user successfully!',
+    message: 'Update class schedule successfully!',
     data,
   })
 })
@@ -52,7 +52,7 @@ const deleteClassSchedule = CatchAsync(async (req, res) => {
   SuccessResponse(res, {
     status: httpStatus.OK,
     success: true,
-    message: 'Delete user successfully!',
+    message: 'Delete class schedule successfully!',
     data,
   })
 })

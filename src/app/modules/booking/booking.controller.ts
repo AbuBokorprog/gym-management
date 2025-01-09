@@ -10,9 +10,9 @@ const createBookingSchedule = CatchAsync(
     const data = await bookingServices.createBookingSchedule(id, req.body)
 
     SuccessResponse(res, {
-      status: httpStatus.OK,
+      status: httpStatus.CREATED,
       success: true,
-      message: 'Create booking schedule successfully!',
+      message: 'Class booked successfully!',
       data,
     })
   },
@@ -25,7 +25,7 @@ const retrieveAllBookingSchedule = CatchAsync(
     SuccessResponse(res, {
       status: httpStatus.OK,
       success: true,
-      message: 'Retrieve all booking schedules successfully!',
+      message: 'Retrieve my booked schedules successfully!',
       data,
     })
   },
@@ -37,7 +37,7 @@ const retrieveSingleBookingSchedule = CatchAsync(async (req, res) => {
   SuccessResponse(res, {
     status: httpStatus.OK,
     success: true,
-    message: 'Retrieve booking schedule successfully!',
+    message: 'Retrieve booked schedule successfully!',
     data,
   })
 })
@@ -48,7 +48,7 @@ const updateBookingSchedule = CatchAsync(async (req, res) => {
   SuccessResponse(res, {
     status: httpStatus.OK,
     success: true,
-    message: 'Update booking schedule successfully!',
+    message: 'Update booked schedule successfully!',
     data,
   })
 })
@@ -59,7 +59,7 @@ const deleteBookingSchedule = CatchAsync(async (req, res) => {
   SuccessResponse(res, {
     status: httpStatus.OK,
     success: true,
-    message: 'Delete booking schedule successfully!',
+    message: 'Delete booked schedule successfully!',
     data,
   })
 })

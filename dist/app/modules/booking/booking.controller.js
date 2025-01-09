@@ -21,9 +21,9 @@ const createBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(
     const { id } = req === null || req === void 0 ? void 0 : req.user;
     const data = yield booking_services_1.bookingServices.createBookingSchedule(id, req.body);
     (0, SuccessResponse_1.default)(res, {
-        status: http_status_1.default.OK,
+        status: http_status_1.default.CREATED,
         success: true,
-        message: 'Create booking schedule successfully!',
+        message: 'Class booked successfully!',
         data,
     });
 }));
@@ -33,7 +33,7 @@ const retrieveAllBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awa
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Retrieve all booking schedules successfully!',
+        message: 'Retrieve my booked schedules successfully!',
         data,
     });
 }));
@@ -43,7 +43,7 @@ const retrieveSingleBookingSchedule = (0, CatchAsync_1.default)((req, res) => __
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Retrieve booking schedule successfully!',
+        message: 'Retrieve booked schedule successfully!',
         data,
     });
 }));
@@ -53,7 +53,7 @@ const updateBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Update booking schedule successfully!',
+        message: 'Update booked schedule successfully!',
         data,
     });
 }));
@@ -63,7 +63,7 @@ const deleteBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Delete booking schedule successfully!',
+        message: 'Delete booked schedule successfully!',
         data,
     });
 }));

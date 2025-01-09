@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, Response } from 'express'
 import httpStatus from 'http-status'
+import config from '../config'
 
 interface TGlobalErrorHandlerResponse {
   success: boolean
@@ -24,7 +25,7 @@ const GlobalErrorHandler = (
     success: false,
     status,
     message,
-    // error: config.node_env === 'development' ? err : message, // Uncomment if using `config`
+    error: config.node_env === 'development' ? err : message, // Uncomment if using `config`
   }
 
   res.status(status).json(errorResponse)
