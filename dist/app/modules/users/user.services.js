@@ -21,6 +21,27 @@ const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     payload.fullName = `${payload.firstName} ${payload.lastName}`;
     const hashPassword = yield (0, hash_password_1.HashPassword)(payload.password);
     payload.password = hashPassword;
+    payload.role = 'TRAINEE';
+    const data = yield prisma_1.default.user.create({
+        data: payload,
+    });
+    return data;
+});
+const createAdmin = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    payload.fullName = `${payload.firstName} ${payload.lastName}`;
+    const hashPassword = yield (0, hash_password_1.HashPassword)(payload.password);
+    payload.password = hashPassword;
+    payload.role = 'ADMIN';
+    const data = yield prisma_1.default.user.create({
+        data: payload,
+    });
+    return data;
+});
+const createTrainer = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    payload.fullName = `${payload.firstName} ${payload.lastName}`;
+    const hashPassword = yield (0, hash_password_1.HashPassword)(payload.password);
+    payload.password = hashPassword;
+    payload.role = 'TRAINER';
     const data = yield prisma_1.default.user.create({
         data: payload,
     });
@@ -30,8 +51,8 @@ const retrieveAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield prisma_1.default.user.findMany({});
     return data;
 });
-const retrieveSingleUsers = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield prisma_1.default.user.findUnique({
+const retrieveMyProfile = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield prisma_1.default.user.findFirst({
         where: {
             id: id,
         },
@@ -70,5 +91,7 @@ exports.userServices = {
     retrieveAllUsers,
     updateUser,
     deleteUser,
-    retrieveSingleUsers,
+    retrieveMyProfile,
+    createAdmin,
+    createTrainer,
 };

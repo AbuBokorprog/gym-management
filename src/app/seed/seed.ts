@@ -18,7 +18,7 @@ export const seedAdmin = async () => {
         firstName: 'Mr.',
         lastName: 'Admin',
         fullName: 'Mr. Admin',
-        email: 'admin@gmail.com.com',
+        email: 'admin@gmail.com',
         role: 'ADMIN',
         password: hashPassword,
         profileImage:

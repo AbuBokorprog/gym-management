@@ -26,6 +26,24 @@ const createUser = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, voi
         data,
     });
 }));
+const createAdmin = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield user_services_1.userServices.createAdmin(req.body);
+    (0, SuccessResponse_1.default)(res, {
+        status: http_status_1.default.CREATED,
+        success: true,
+        message: 'Create admin successfully!',
+        data,
+    });
+}));
+const createTrainer = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield user_services_1.userServices.createTrainer(req.body);
+    (0, SuccessResponse_1.default)(res, {
+        status: http_status_1.default.CREATED,
+        success: true,
+        message: 'Create trainer successfully!',
+        data,
+    });
+}));
 const retrieveAllUsers = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield user_services_1.userServices.retrieveAllUsers();
     (0, SuccessResponse_1.default)(res, {
@@ -35,9 +53,9 @@ const retrieveAllUsers = (0, CatchAsync_1.default)((req, res) => __awaiter(void 
         data,
     });
 }));
-const retrieveSingleUsers = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const retrieveMyProfile = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const data = yield user_services_1.userServices.retrieveSingleUsers(id);
+    const data = yield user_services_1.userServices.retrieveMyProfile(id);
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
@@ -69,6 +87,8 @@ exports.userController = {
     createUser,
     retrieveAllUsers,
     updateUser,
-    retrieveSingleUsers,
+    retrieveMyProfile,
     deleteUser,
+    createAdmin,
+    createTrainer,
 };

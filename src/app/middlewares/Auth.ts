@@ -11,7 +11,7 @@ const Auth = (...userRoles: string[]) => {
     const token = req.headers.authorization?.split(' ')[1]
 
     if (!token) {
-      throw new AppError(httpStatus.UNAUTHORIZED, "You're unauthorized!")
+      throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized access!')
     }
 
     // Verify token
@@ -35,13 +35,9 @@ const Auth = (...userRoles: string[]) => {
       },
     })
 
-    // if (!user || user.status !== 'ACTIVE') {
-    //   throw new AppError(httpStatus.UNAUTHORIZED, "You're unauthorized!")
-    // }
-
     // Check role
     if (userRoles.length > 0 && !userRoles.includes(role)) {
-      throw new AppError(httpStatus.FORBIDDEN, "You don't have permission!")
+      throw new AppError(httpStatus.FORBIDDEN, 'Unauthorized access!')
     }
 
     // Attach user to request

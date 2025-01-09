@@ -30,7 +30,7 @@ const seedAdmin = () => __awaiter(void 0, void 0, void 0, function* () {
                 firstName: 'Mr.',
                 lastName: 'Admin',
                 fullName: 'Mr. Admin',
-                email: 'admin@gmail.com.com',
+                email: 'admin@gmail.com',
                 role: 'ADMIN',
                 password: hashPassword,
                 profileImage: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',

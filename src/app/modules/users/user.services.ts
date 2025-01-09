@@ -8,19 +8,45 @@ const createUser = async (payload: User) => {
   payload.fullName = `${payload.firstName} ${payload.lastName}`
   const hashPassword = await HashPassword(payload.password)
   payload.password = hashPassword
+  payload.role = 'TRAINEE'
   const data = await prisma.user.create({
     data: payload,
   })
 
   return data
 }
+
+const createAdmin = async (payload: User) => {
+  payload.fullName = `${payload.firstName} ${payload.lastName}`
+  const hashPassword = await HashPassword(payload.password)
+  payload.password = hashPassword
+  payload.role = 'ADMIN'
+  const data = await prisma.user.create({
+    data: payload,
+  })
+
+  return data
+}
+
+const createTrainer = async (payload: User) => {
+  payload.fullName = `${payload.firstName} ${payload.lastName}`
+  const hashPassword = await HashPassword(payload.password)
+  payload.password = hashPassword
+  payload.role = 'TRAINER'
+  const data = await prisma.user.create({
+    data: payload,
+  })
+
+  return data
+}
+
 const retrieveAllUsers = async () => {
   const data = await prisma.user.findMany({})
 
   return data
 }
-const retrieveSingleUsers = async (id: string) => {
-  const data = await prisma.user.findUnique({
+const retrieveMyProfile = async (id: string) => {
+  const data = await prisma.user.findFirst({
     where: {
       id: id,
     },
@@ -67,5 +93,7 @@ export const userServices = {
   retrieveAllUsers,
   updateUser,
   deleteUser,
-  retrieveSingleUsers,
+  retrieveMyProfile,
+  createAdmin,
+  createTrainer,
 }

@@ -13,6 +13,26 @@ const createUser = CatchAsync(async (req, res) => {
     data,
   })
 })
+const createAdmin = CatchAsync(async (req, res) => {
+  const data = await userServices.createAdmin(req.body)
+
+  SuccessResponse(res, {
+    status: httpStatus.CREATED,
+    success: true,
+    message: 'Create admin successfully!',
+    data,
+  })
+})
+const createTrainer = CatchAsync(async (req, res) => {
+  const data = await userServices.createTrainer(req.body)
+
+  SuccessResponse(res, {
+    status: httpStatus.CREATED,
+    success: true,
+    message: 'Create trainer successfully!',
+    data,
+  })
+})
 const retrieveAllUsers = CatchAsync(async (req, res) => {
   const data = await userServices.retrieveAllUsers()
 
@@ -23,9 +43,9 @@ const retrieveAllUsers = CatchAsync(async (req, res) => {
     data,
   })
 })
-const retrieveSingleUsers = CatchAsync(async (req, res) => {
+const retrieveMyProfile = CatchAsync(async (req, res) => {
   const { id } = req.params
-  const data = await userServices.retrieveSingleUsers(id)
+  const data = await userServices.retrieveMyProfile(id)
 
   SuccessResponse(res, {
     status: httpStatus.OK,
@@ -61,6 +81,8 @@ export const userController = {
   createUser,
   retrieveAllUsers,
   updateUser,
-  retrieveSingleUsers,
+  retrieveMyProfile,
   deleteUser,
+  createAdmin,
+  createTrainer,
 }

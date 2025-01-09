@@ -23,7 +23,7 @@ const Auth = (...userRoles) => {
         var _a;
         const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1];
         if (!token) {
-            throw new AppError_1.AppError(http_status_1.default.UNAUTHORIZED, "You're unauthorized!");
+            throw new AppError_1.AppError(http_status_1.default.UNAUTHORIZED, 'Unauthorized access!');
         }
         // Verify token
         const decoded = jsonwebtoken_1.default.verify(token, config_1.default.access_token);
@@ -39,12 +39,9 @@ const Auth = (...userRoles) => {
                 email: email,
             },
         });
-        // if (!user || user.status !== 'ACTIVE') {
-        //   throw new AppError(httpStatus.UNAUTHORIZED, "You're unauthorized!")
-        // }
         // Check role
         if (userRoles.length > 0 && !userRoles.includes(role)) {
-            throw new AppError_1.AppError(http_status_1.default.FORBIDDEN, "You don't have permission!");
+            throw new AppError_1.AppError(http_status_1.default.FORBIDDEN, 'Unauthorized access!');
         }
         // Attach user to request
         req.user = decoded;

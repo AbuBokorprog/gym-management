@@ -9,13 +9,13 @@ const router = express.Router()
 router.post(
   '/create-admin',
   ValidationRequest(userValidation.createUserValidation),
-  userController.createUser,
+  userController.createAdmin,
 )
 router.post(
   '/create-trainer',
   Auth(Role.ADMIN),
   ValidationRequest(userValidation.createUserValidation),
-  userController.createUser,
+  userController.createTrainer,
 )
 router.post(
   '/create-user',
@@ -23,7 +23,11 @@ router.post(
   userController.createUser,
 )
 router.get('/', userController.retrieveAllUsers)
-router.get('/:id', userController.retrieveSingleUsers)
+router.get(
+  '/my-profile',
+  Auth(Role.ADMIN, Role.TRAINEE, Role.TRAINER),
+  userController.retrieveMyProfile,
+)
 router.patch('/:id', userController.updateUser)
 router.delete('/:id', userController.deleteUser)
 
