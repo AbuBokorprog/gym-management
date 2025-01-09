@@ -29,6 +29,11 @@ router.patch(
   ValidationRequest(bookingScheduleValidation.updateBookingClassSchema),
   bookingController.updateBookingSchedule,
 )
+router.patch(
+  '/update-status/:id',
+  Auth(Role.TRAINEE),
+  bookingController.updateBookingScheduleStatus,
+)
 router.delete(
   '/:id',
   Auth(Role.ADMIN, Role.TRAINEE, Role.TRAINER),

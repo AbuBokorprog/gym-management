@@ -54,6 +54,7 @@ model BookingClass {
   trainee             User @relation(fields: [traineeId], references: [id])
   scheduleId          String
   schedules           classSchedule @relation(fields: [scheduleId], references: [id])
+  status              BookingStatus @default(BOOKED)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
@@ -67,4 +68,9 @@ enum Role {
   ADMIN
   TRAINER
   TRAINEE
+}
+
+enum BookingStatus {
+  BOOKED
+  CANCELED
 }

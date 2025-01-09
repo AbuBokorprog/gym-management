@@ -125,6 +125,29 @@ const updateBookingSchedule = async (
 
   return data
 }
+const updateBookingScheduleStatus = async (
+  id: string,
+  payload: { status: 'BOOKED' | 'CANCELED' },
+) => {
+  const isExistBookingSchedule = await prisma.bookingClass.findUnique({
+    where: { id },
+  })
+
+  if (!isExistBookingSchedule) {
+    throw new AppError(httpStatus.NOT_FOUND, 'booking not found!')
+  }
+
+  const data = await prisma.bookingClass.update({
+    where: {
+      id: id,
+    },
+    data: {
+      status: payload.status,
+    },
+  })
+
+  return data
+}
 const deleteBookingSchedule = async (id: string) => {
   const data = await prisma.bookingClass.delete({
     where: { id },
@@ -143,4 +166,5 @@ export const bookingServices = {
   updateBookingSchedule,
   deleteBookingSchedule,
   retrieveSingleBookingSchedule,
+  updateBookingScheduleStatus,
 }
