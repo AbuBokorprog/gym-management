@@ -173,11 +173,88 @@ NODE_ENV=development
 
 ## Testing Instructions
 
-1. Use the provided admin credentials to log in.
-2. Test Admin Features:
-   - Create trainers using the `/api/admin/trainers` endpoint.
-   - Schedule classes using the `/api/admin/schedules` endpoint.
-3. Test Trainee Features:
-   - Register a trainee and log in.
-   - Book a class using `/api/trainees/book`.
-   - Cancel a booking using `/api/trainees/bookings/:id`.
+### 1. **Users API**
+
+- **Create Admin/Trainer/Trainee**
+  - Endpoint: `POST api/users/create-admin`
+  - Payload:
+    ```json
+    {
+      "firstName": "MR.",
+      "lastName": "User",
+      "email": "user@gmail.com.com",
+      "password": "user123"
+    }
+    ```
+  - Expected Response:
+    - **201 Created**: Admin user created successfully.
+    - **400 Bad Request**: Validation errors.
+- **Create Trainer**
+  - Endpoint: `POST api/users/create-trainer`
+  - Requires: `Authorization` header with an admin token.
+  - Payload: Same as "Create Admin."
+  - Expected Response: Same as "Create Admin."
+  - **Create Trainee**
+  - Endpoint: `POST api/users/create-trainee`
+  - Requires: `Authorization` header with an admin token.
+  - Payload: Same as "Create Admin."
+  - Expected Response: Same as "Create Admin."
+- **My Profile**
+  - Endpoint: `GET api/users/my-profile`
+  - Requires: `Authorization` header with a valid token.
+  - Expected Response: User profile details.
+
+### 2. **Class Schedule API**
+
+- **Create Class Schedule**
+  - Endpoint: `POST api/class-schedule/`
+  - Requires: `Authorization` header with an admin token.
+  - Payload:
+    ```json
+    {
+      "date": "2025-01-10T00:00:00Z",
+      "startTime": "2025-01-10T06:00:00Z",
+      "endTime": "2025-01-10T08:00:00Z",
+      "trainerId": "da3602d6-7e48-476c-938e-b5d0dd37cf67"
+    }
+    ```
+  - Expected Response:
+    - **201 Created**: Schedule created successfully.
+    - **400 Bad Request**: Time overlaps or validation errors.
+- **Retrieve All Schedules**
+  - Endpoint: `GET /class-schedule/`
+  - Expected Response: Retrieve all class schedules successfully!
+
+### 3. **Booking Schedule API**
+
+- **Create Booking**
+  - Endpoint: `POST /booking-schedule/`
+  - Requires: `Authorization` header with a trainee token.
+  - Payload:
+    ```json
+    {
+      "scheduleId": "278ff3f2-eb81-4c3d-a572-63d34d3e100a"
+    }
+    ```
+  - Expected Response:
+    - **201 Created**: Class booked successfully!
+    - **400 Bad Request**: Class schedule not found, You're already booked this class schedule, Class schedule is full. Maximum 10 trainees allowed per schedule, You have already booked another class in the same time slot, or validation errors.
+- **Retrieve My Bookings**
+  - Endpoint: `GET /booking-schedule/my-booking-schedules`
+  - Requires: `Authorization` header with a trainee token.
+  - Expected Response: List of bookings for the trainee.
+
+### 4. **Authentication**
+
+- **Login**
+  - Endpoint: `POST /auth/login`
+  - Payload:
+    ```json
+    {
+      "email": "user@example.com",
+      "password": "password"
+    }
+    ```
+  - Expected Response:
+    - **200 OK**: Returns an access token.
+    - **401 Unauthorized**: Invalid credentials.

@@ -9,7 +9,7 @@ const createClassSchedule = CatchAsync(async (req, res) => {
   SuccessResponse(res, {
     status: httpStatus.CREATED,
     success: true,
-    message: 'Create class schedule successfully!',
+    message: 'Schedule created successfully',
     data,
   })
 })

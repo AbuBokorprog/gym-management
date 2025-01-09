@@ -43,13 +43,20 @@ const createClassSchedule = (payload) => __awaiter(void 0, void 0, void 0, funct
     return data;
 });
 const retrieveAllClassSchedule = () => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield prisma_1.default.classSchedule.findMany({});
+    const data = yield prisma_1.default.classSchedule.findMany({
+        include: {
+            trainer: true,
+        },
+    });
     return data;
 });
 const retrieveSingleClassSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield prisma_1.default.classSchedule.findUnique({
         where: {
             id: id,
+        },
+        include: {
+            trainer: true,
         },
     });
     if (!data) {

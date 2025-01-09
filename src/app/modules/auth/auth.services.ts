@@ -22,7 +22,7 @@ const userLogin = async (payload: { email: string; password: string }) => {
   )
 
   if (!isMatchedPassword) {
-    throw new AppError(httpStatus.UNAUTHORIZED, 'You are unauthorized!')
+    throw new AppError(httpStatus.UNAUTHORIZED, ' Invalid credentials')
   }
 
   const accessTokenData = {

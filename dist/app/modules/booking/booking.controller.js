@@ -27,9 +27,9 @@ const createBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(
         data,
     });
 }));
-const retrieveAllBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const retrieveMyAllBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req === null || req === void 0 ? void 0 : req.user;
-    const data = yield booking_services_1.bookingServices.retrieveAllBookingSchedule(id);
+    const data = yield booking_services_1.bookingServices.retrieveMyAllBookingSchedule(id);
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
@@ -79,7 +79,7 @@ const deleteBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(
 }));
 exports.bookingController = {
     createBookingSchedule,
-    retrieveAllBookingSchedule,
+    retrieveMyAllBookingSchedule,
     updateBookingSchedule,
     retrieveSingleBookingSchedule,
     deleteBookingSchedule,

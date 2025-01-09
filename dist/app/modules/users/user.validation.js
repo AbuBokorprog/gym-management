@@ -10,7 +10,7 @@ exports.createUserValidation = zod_1.z.object({
     email: zod_1.z.string().email('Invalid email address'),
     password: zod_1.z.string().min(6, 'Password must be at least 6 characters'),
     profileImage: zod_1.z.string().url('Invalid URL').optional(),
-    phone: zod_1.z.string().min(10, 'Phone number must be at least 10 characters'),
+    phone: zod_1.z.string().optional(),
     //   schedules: z.array(z.any()).optional(), // Adjust based on `ClassSchedule` structure
     //   bookingClass: z.array(z.any()).optional(), // Adjust based on `BookingClass` structure
 });
@@ -25,10 +25,7 @@ exports.updateUserValidation = zod_1.z.object({
         .min(6, 'Password must be at least 6 characters')
         .optional(),
     profileImage: zod_1.z.string().url('Invalid URL').optional(),
-    phone: zod_1.z
-        .string()
-        .min(10, 'Phone number must be at least 10 characters')
-        .optional(),
+    phone: zod_1.z.string().optional(),
     //   schedules: z.array(z.any()).optional(), // Adjust based on `ClassSchedule` structure
     //   bookingClass: z.array(z.any()).optional(), // Adjust based on `BookingClass` structure
 });

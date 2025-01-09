@@ -30,7 +30,7 @@ const userLogin = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const isMatchedPassword = yield (0, compare_password_1.ComparePassword)(payload.password, isExistUser.password);
     if (!isMatchedPassword) {
-        throw new AppError_1.AppError(http_status_1.default.UNAUTHORIZED, 'You are unauthorized!');
+        throw new AppError_1.AppError(http_status_1.default.UNAUTHORIZED, ' Invalid credentials');
     }
     const accessTokenData = {
         email: isExistUser.email,

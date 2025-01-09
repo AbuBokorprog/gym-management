@@ -16,7 +16,7 @@ router.post(
 router.get(
   '/my-booking-schedules',
   Auth(Role.TRAINEE),
-  bookingController.retrieveAllBookingSchedule,
+  bookingController.retrieveMyAllBookingSchedule,
 )
 router.get(
   '/:id',

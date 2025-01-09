@@ -7,6 +7,7 @@ const createBookingSchedule = async (
   traineeId: string,
   payload: BookingClass,
 ) => {
+  payload.traineeId = traineeId
   // 1. Check is class schedule exit?
   const schedule = await prisma.classSchedule.findUnique({
     where: {
@@ -84,9 +85,16 @@ const createBookingSchedule = async (
 
   return data
 }
-const retrieveAllBookingSchedule = async (traineeId: string) => {
+const retrieveMyAllBookingSchedule = async (traineeId: string) => {
   const data = await prisma.bookingClass.findMany({
     where: { traineeId },
+    include: {
+      schedules: {
+        include: {
+          trainer: true,
+        },
+      },
+    },
   })
 
   return data
@@ -162,7 +170,7 @@ const deleteBookingSchedule = async (id: string) => {
 
 export const bookingServices = {
   createBookingSchedule,
-  retrieveAllBookingSchedule,
+  retrieveMyAllBookingSchedule,
   updateBookingSchedule,
   deleteBookingSchedule,
   retrieveSingleBookingSchedule,

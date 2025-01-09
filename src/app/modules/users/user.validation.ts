@@ -8,7 +8,7 @@ export const createUserValidation = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   profileImage: z.string().url('Invalid URL').optional(),
-  phone: z.string().min(10, 'Phone number must be at least 10 characters'),
+  phone: z.string().optional(),
   //   schedules: z.array(z.any()).optional(), // Adjust based on `ClassSchedule` structure
   //   bookingClass: z.array(z.any()).optional(), // Adjust based on `BookingClass` structure
 })
@@ -24,10 +24,7 @@ export const updateUserValidation = z.object({
     .min(6, 'Password must be at least 6 characters')
     .optional(),
   profileImage: z.string().url('Invalid URL').optional(),
-  phone: z
-    .string()
-    .min(10, 'Phone number must be at least 10 characters')
-    .optional(),
+  phone: z.string().optional(),
   //   schedules: z.array(z.any()).optional(), // Adjust based on `ClassSchedule` structure
   //   bookingClass: z.array(z.any()).optional(), // Adjust based on `BookingClass` structure
 })

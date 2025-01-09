@@ -22,7 +22,7 @@ const createClassSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(vo
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.CREATED,
         success: true,
-        message: 'Create class schedule successfully!',
+        message: 'Schedule created successfully',
         data,
     });
 }));

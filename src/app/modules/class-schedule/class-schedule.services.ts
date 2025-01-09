@@ -42,7 +42,11 @@ const createClassSchedule = async (payload: classSchedule) => {
   return data
 }
 const retrieveAllClassSchedule = async () => {
-  const data = await prisma.classSchedule.findMany({})
+  const data = await prisma.classSchedule.findMany({
+    include: {
+      trainer: true,
+    },
+  })
 
   return data
 }
@@ -50,6 +54,9 @@ const retrieveSingleClassSchedule = async (id: string) => {
   const data = await prisma.classSchedule.findUnique({
     where: {
       id: id,
+    },
+    include: {
+      trainer: true,
     },
   })
 

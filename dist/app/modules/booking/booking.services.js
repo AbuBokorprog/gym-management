@@ -17,6 +17,7 @@ const prisma_1 = __importDefault(require("../../helpers/prisma"));
 const AppError_1 = require("../../utils/AppError");
 const http_status_1 = __importDefault(require("http-status"));
 const createBookingSchedule = (traineeId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    payload.traineeId = traineeId;
     // 1. Check is class schedule exit?
     const schedule = yield prisma_1.default.classSchedule.findUnique({
         where: {
@@ -72,9 +73,16 @@ const createBookingSchedule = (traineeId, payload) => __awaiter(void 0, void 0, 
     });
     return data;
 });
-const retrieveAllBookingSchedule = (traineeId) => __awaiter(void 0, void 0, void 0, function* () {
+const retrieveMyAllBookingSchedule = (traineeId) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield prisma_1.default.bookingClass.findMany({
         where: { traineeId },
+        include: {
+            schedules: {
+                include: {
+                    trainer: true,
+                },
+            },
+        },
     });
     return data;
 });
@@ -132,7 +140,7 @@ const deleteBookingSchedule = (id) => __awaiter(void 0, void 0, void 0, function
 });
 exports.bookingServices = {
     createBookingSchedule,
-    retrieveAllBookingSchedule,
+    retrieveMyAllBookingSchedule,
     updateBookingSchedule,
     deleteBookingSchedule,
     retrieveSingleBookingSchedule,
