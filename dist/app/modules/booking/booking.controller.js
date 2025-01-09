@@ -33,7 +33,7 @@ const retrieveAllBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awa
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Retrieve my booked schedules successfully!',
+        message: 'Retrieved my booked schedules successfully!',
         data,
     });
 }));
@@ -43,7 +43,7 @@ const retrieveSingleBookingSchedule = (0, CatchAsync_1.default)((req, res) => __
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Retrieve booked schedule successfully!',
+        message: 'Retrieved booked schedule successfully!',
         data,
     });
 }));
@@ -53,7 +53,17 @@ const updateBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Update booked schedule successfully!',
+        message: 'Updated booked schedule successfully!',
+        data,
+    });
+}));
+const updateBookingScheduleStatus = (0, CatchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const data = yield booking_services_1.bookingServices.updateBookingSchedule(id, req.body);
+    (0, SuccessResponse_1.default)(res, {
+        status: http_status_1.default.OK,
+        success: true,
+        message: 'Updated booked schedule status successfully!',
         data,
     });
 }));
@@ -63,7 +73,7 @@ const deleteBookingSchedule = (0, CatchAsync_1.default)((req, res) => __awaiter(
     (0, SuccessResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
-        message: 'Delete booked schedule successfully!',
+        message: 'Deleted booked schedule successfully!',
         data,
     });
 }));
@@ -73,4 +83,5 @@ exports.bookingController = {
     updateBookingSchedule,
     retrieveSingleBookingSchedule,
     deleteBookingSchedule,
+    updateBookingScheduleStatus,
 };

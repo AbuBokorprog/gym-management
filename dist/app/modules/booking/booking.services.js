@@ -104,6 +104,23 @@ const updateBookingSchedule = (id, payload) => __awaiter(void 0, void 0, void 0,
     });
     return data;
 });
+const updateBookingScheduleStatus = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const isExistBookingSchedule = yield prisma_1.default.bookingClass.findUnique({
+        where: { id },
+    });
+    if (!isExistBookingSchedule) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, 'booking not found!');
+    }
+    const data = yield prisma_1.default.bookingClass.update({
+        where: {
+            id: id,
+        },
+        data: {
+            status: payload.status,
+        },
+    });
+    return data;
+});
 const deleteBookingSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield prisma_1.default.bookingClass.delete({
         where: { id },
@@ -119,4 +136,5 @@ exports.bookingServices = {
     updateBookingSchedule,
     deleteBookingSchedule,
     retrieveSingleBookingSchedule,
+    updateBookingScheduleStatus,
 };

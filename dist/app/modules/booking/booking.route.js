@@ -15,5 +15,6 @@ router.post('/', (0, Auth_1.default)(client_1.Role.TRAINEE), (0, ValidationReque
 router.get('/my-booking-schedules', (0, Auth_1.default)(client_1.Role.TRAINEE), booking_controller_1.bookingController.retrieveAllBookingSchedule);
 router.get('/:id', (0, Auth_1.default)(client_1.Role.ADMIN, client_1.Role.TRAINEE, client_1.Role.TRAINER), booking_controller_1.bookingController.retrieveSingleBookingSchedule);
 router.patch('/:id', (0, Auth_1.default)(client_1.Role.ADMIN, client_1.Role.TRAINEE, client_1.Role.TRAINER), (0, ValidationRequest_1.default)(booking_validation_1.bookingScheduleValidation.updateBookingClassSchema), booking_controller_1.bookingController.updateBookingSchedule);
+router.patch('/update-status/:id', (0, Auth_1.default)(client_1.Role.TRAINEE), booking_controller_1.bookingController.updateBookingScheduleStatus);
 router.delete('/:id', (0, Auth_1.default)(client_1.Role.ADMIN, client_1.Role.TRAINEE, client_1.Role.TRAINER), booking_controller_1.bookingController.deleteBookingSchedule);
 exports.bookingScheduleRoute = router;
