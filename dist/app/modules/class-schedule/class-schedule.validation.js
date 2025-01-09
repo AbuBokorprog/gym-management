@@ -4,9 +4,15 @@ exports.classScheduleValidation = exports.updateClassScheduleSchema = exports.cr
 const zod_1 = require("zod");
 // Create ClassSchedule Schema
 exports.createClassScheduleSchema = zod_1.z.object({
-    date: zod_1.z.date({ required_error: 'Date is required' }),
-    startTime: zod_1.z.date({ required_error: 'Start time is required' }),
-    endTime: zod_1.z.date({ required_error: 'End time is required' }),
+    date: zod_1.z
+        .string({ required_error: 'Date is required' })
+        .transform(str => new Date(str)),
+    startTime: zod_1.z
+        .string({ required_error: 'Start Time is required' })
+        .transform(str => new Date(str)),
+    endTime: zod_1.z
+        .string({ required_error: 'End time is required' })
+        .transform(str => new Date(str)),
     trainerId: zod_1.z.string().uuid({ message: 'Trainer ID must be a valid UUID' }),
     maxTrainee: zod_1.z.number().min(1, 'Max trainees must be at least 1').default(10),
     totalCurrentTrainee: zod_1.z

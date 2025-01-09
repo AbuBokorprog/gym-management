@@ -2,9 +2,15 @@ import { z } from 'zod'
 
 // Create ClassSchedule Schema
 export const createClassScheduleSchema = z.object({
-  date: z.date({ required_error: 'Date is required' }),
-  startTime: z.date({ required_error: 'Start time is required' }),
-  endTime: z.date({ required_error: 'End time is required' }),
+  date: z
+    .string({ required_error: 'Date is required' })
+    .transform(str => new Date(str)),
+  startTime: z
+    .string({ required_error: 'Start Time is required' })
+    .transform(str => new Date(str)),
+  endTime: z
+    .string({ required_error: 'End time is required' })
+    .transform(str => new Date(str)),
   trainerId: z.string().uuid({ message: 'Trainer ID must be a valid UUID' }),
   maxTrainee: z.number().min(1, 'Max trainees must be at least 1').default(10),
   totalCurrentTrainee: z

@@ -2,21 +2,17 @@ import httpStatus from 'http-status'
 import CatchAsync from '../../utils/CatchAsync'
 import SuccessResponse from '../../utils/SuccessResponse'
 import { classScheduleServices } from './class-schedule.services'
-import { Request, Response } from 'express'
 
-const createClassSchedule = CatchAsync(
-  async (req: Request & { user?: any }, res: Response) => {
-    const { id } = req.user
-    const data = await classScheduleServices.createClassSchedule(id, req.body)
+const createClassSchedule = CatchAsync(async (req, res) => {
+  const data = await classScheduleServices.createClassSchedule(req.body)
 
-    SuccessResponse(res, {
-      status: httpStatus.OK,
-      success: true,
-      message: 'Create user successfully!',
-      data,
-    })
-  },
-)
+  SuccessResponse(res, {
+    status: httpStatus.OK,
+    success: true,
+    message: 'Create user successfully!',
+    data,
+  })
+})
 const retrieveAllClassSchedule = CatchAsync(async (req, res) => {
   const data = await classScheduleServices.retrieveAllClassSchedule()
 

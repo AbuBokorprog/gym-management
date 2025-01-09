@@ -3,7 +3,7 @@ import prisma from '../../helpers/prisma'
 import { AppError } from '../../utils/AppError'
 import httpStatus from 'http-status'
 
-const createClassSchedule = async (adminId: string, payload: classSchedule) => {
+const createClassSchedule = async (payload: classSchedule) => {
   const {
     date,
     startTime,
@@ -27,10 +27,10 @@ const createClassSchedule = async (adminId: string, payload: classSchedule) => {
 
   // 2. Check for time overlap
   const isOverlapping = existingSchedules.some(schedule => {
-    const existingStartTime = new Date(`${date}T${schedule.startTime}`)
-    const existingEndTime = new Date(`${date}T${schedule.endTime}`)
-    const newStartTime = new Date(`${date}T${payload.startTime}`)
-    const newEndTime = new Date(`${date}T${payload.endTime}`)
+    const existingStartTime = new Date(schedule.startTime)
+    const existingEndTime = new Date(schedule.endTime)
+    const newStartTime = new Date(startTime)
+    const newEndTime = new Date(endTime)
     return newStartTime < existingEndTime && newEndTime > existingStartTime
   })
 

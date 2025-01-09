@@ -6,7 +6,7 @@ const zod_1 = require("zod");
 exports.createUserValidation = zod_1.z.object({
     firstName: zod_1.z.string().min(1, 'First name is required'),
     lastName: zod_1.z.string().min(1, 'Last name is required'),
-    fullName: zod_1.z.string().min(1, 'Full name is required'),
+    fullName: zod_1.z.string().optional(),
     email: zod_1.z.string().email('Invalid email address'),
     password: zod_1.z.string().min(6, 'Password must be at least 6 characters'),
     profileImage: zod_1.z.string().url('Invalid URL').optional(),
@@ -18,7 +18,7 @@ exports.createUserValidation = zod_1.z.object({
 exports.updateUserValidation = zod_1.z.object({
     firstName: zod_1.z.string().min(1).optional(),
     lastName: zod_1.z.string().min(1).optional(),
-    fullName: zod_1.z.string().min(1).optional(),
+    fullName: zod_1.z.string().optional(),
     email: zod_1.z.string().email('Invalid email address').optional(),
     password: zod_1.z
         .string()

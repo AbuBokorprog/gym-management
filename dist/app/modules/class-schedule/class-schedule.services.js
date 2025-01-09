@@ -16,7 +16,7 @@ exports.classScheduleServices = void 0;
 const prisma_1 = __importDefault(require("../../helpers/prisma"));
 const AppError_1 = require("../../utils/AppError");
 const http_status_1 = __importDefault(require("http-status"));
-const createClassSchedule = (adminId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+const createClassSchedule = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { date, startTime, endTime, maxTrainee, totalCurrentTrainee, trainerId, } = payload;
     // 1. Check if already scheduled 5 classes on the given day
     const existingSchedules = yield prisma_1.default.classSchedule.findMany({
@@ -27,10 +27,10 @@ const createClassSchedule = (adminId, payload) => __awaiter(void 0, void 0, void
     }
     // 2. Check for time overlap
     const isOverlapping = existingSchedules.some(schedule => {
-        const existingStartTime = new Date(`${date}T${schedule.startTime}`);
-        const existingEndTime = new Date(`${date}T${schedule.endTime}`);
-        const newStartTime = new Date(`${date}T${payload.startTime}`);
-        const newEndTime = new Date(`${date}T${payload.endTime}`);
+        const existingStartTime = new Date(schedule.startTime);
+        const existingEndTime = new Date(schedule.endTime);
+        const newStartTime = new Date(startTime);
+        const newEndTime = new Date(endTime);
         return newStartTime < existingEndTime && newEndTime > existingStartTime;
     });
     if (isOverlapping) {
